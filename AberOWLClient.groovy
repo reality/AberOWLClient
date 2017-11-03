@@ -42,13 +42,13 @@ public class AberOWLClient {
   }
 
   def searchLabels(term, ontology) {
+    def http = new HTTPBuilder(API)
     def result
     http.request(GET, JSON) {
-      uri.path = 'queryLabels.groovy'
+      uri.path = 'queryNames.groovy'
       uri.query = [
-        query: label,
-        ontology: ontology,
-        type: 'equivalent'
+        term: term,
+        ontology: ontology
       ]
 
       response.success = { res, json ->
@@ -58,6 +58,7 @@ public class AberOWLClient {
   }
 
   def getClass(iri, ontology) {
+    def http = new HTTPBuilder(API)
     def result
     http.request(GET, JSON) {
       uri.path = 'getClass.groovy'
